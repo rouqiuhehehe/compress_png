@@ -30,16 +30,11 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE=1 -finput-charset=UTF-8 -fexec-charset=UTF-8")
 
 include(cmake/global.cmake)
+include(cmake/setup.cmake)
 
 include_directories(include)
 
-string(TIMESTAMP CURRENT_YEAR "%Y")
-string(TIMESTAMP TODAY "%Y/%m/%d")
-set(COMPANY_NAME "varian")
-set(AUTHOR_NAME "varian")
 configure_file(resource.rc.in resource.rc @ONLY)
-
-set(BINARY_CREATOR_PATH "D:\\qt\\Tools\\QtInstallerFramework\\4.10\\bin\\binarycreator.exe")
 
 add_subdirectory(3rd)
 add_subdirectory(src)
