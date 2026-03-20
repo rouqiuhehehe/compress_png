@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+    <DisplayName>@PROJECT_NAME@.exe</DisplayName>
+    <Description>@PROJECT_NAME@安装程序</Description>
+    <Version>@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@</Version>
+    <ReleaseDate>@TODAY@</ReleaseDate>
+    <Default>true</Default>
+    <Script>installscript.qs</Script>
+</Package>

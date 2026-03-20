@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Installer>
+    <Name>@PROJECT_NAME@</Name>
+    <Version>@PROJECT_VERSION_MAJOR@.@PROJECT_VERSION_MINOR@.@PROJECT_VERSION_PATCH@</Version>
+    <Title>@PROJECT_NAME@程序安装向导</Title>
+    <Publisher>@AUTHOR_NAME@</Publisher>
+    <!-- Directory name is used in component.xml -->
+    <StartMenuDir>@PROJECT_NAME@</StartMenuDir>
+    <TargetDir>@@HomeDir@@/@PROJECT_NAME@</TargetDir>
+</Installer>
