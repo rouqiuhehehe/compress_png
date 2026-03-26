@@ -18,9 +18,9 @@
 *.pdb
 
 # Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+#*.so
+#*.dylib
+#*.dll
 
 # Fortran module files
 *.mod
@@ -33,7 +33,7 @@
 *.lib
 
 # Executables
-*.exe
+#*.exe
 *.out
 *.app
 
