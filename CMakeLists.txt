@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.19)
-project(QtTemplateProject LANGUAGES CXX VERSION 1.0.0)
+project(PngCompress2Webp LANGUAGES CXX VERSION 1.0.0)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_PREFIX_PATH "D:\\qt\\6.9.3\\mingw_64")
@@ -28,7 +28,6 @@ set(QT_VERSION 6)
 #set(REQUIRED_WIN_LIBS wtsapi32)
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE=1 -finput-charset=UTF-8 -fexec-charset=UTF-8")
-
 include(cmake/global.cmake)
 include(cmake/setup.cmake)
 

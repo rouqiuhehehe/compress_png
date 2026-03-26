@@ -6,8 +6,13 @@
 
 #include "ui_MainWindow.h"
 #include "Mainwindow.h"
+
+#include <QLockFile>
 #include <QPushButton>
 #include <QMenu>
+#include <QFileDialog>
+#include <QMessageBox>
+#include "Taskdialog.h"
 
 MainWindow::MainWindow(QWidget *parent) : QWidget(parent), ui(new Ui::MainWindow) {
     ui->setupUi(this);
@@ -16,6 +21,8 @@ MainWindow::MainWindow(QWidget *parent) : QWidget(parent), ui(new Ui::MainWindow
 
     setAttribute(Qt::WA_DeleteOnClose);
 
+    ui->label->setText(initialDir);
+
     initTrayIcon();
 }
 
@@ -23,6 +30,7 @@ MainWindow::~MainWindow() {
     delete ui;
 
     delete trayIcon;
+    delete taskDialog;
 }
 
 void MainWindow::buttonClicked(QAbstractButton *button) {
@@ -30,6 +38,7 @@ void MainWindow::buttonClicked(QAbstractButton *button) {
         close();
     } else if (button == ui->buttonBox->button(QDialogButtonBox::Ok)) {
         qDebug() << "OK BUTTON CLICK";
+        startTask();
     }
 }
 
@@ -42,6 +51,16 @@ void MainWindow::trayIconActive(QSystemTrayIcon::ActivationReason reason) {
         default: ;
     }
 }
+
+void MainWindow::dirSelect() {
+    QString dirPath = QFileDialog::getExistingDirectory(this, tr("选择文件夹"), initialDir);
+    if (dirPath.isEmpty()) {
+        return;
+    }
+    qDebug() << "用户选择的目录：" << dirPath;
+
+    ui->label->setText(dirPath);
+};
 
 void MainWindow::initTrayIcon() {
     trayIcon = new QSystemTrayIcon(this);
@@ -62,6 +81,24 @@ void MainWindow::initTrayIcon() {
     trayIcon->setContextMenu(menu);
 
     connect(trayIcon, &QSystemTrayIcon::activated, this, &MainWindow::trayIconActive);
+}
+
+void MainWindow::startTask() {
+    QDir dir(ui->label->text());
+    QStringList filters;
+    filters << "*.png";
+
+    QFileInfoList fileInfo = dir.entryInfoList(filters, QDir::Files | QDir::NoSymLinks);
+    if (fileInfo.isEmpty()) {
+        QMessageBox::critical(this, tr("错误"), tr("无需要处理的图片（暂只支持png）"), QMessageBox::Ok);
+        return;
+    }
+
+    taskDialog = new TaskDialog(fileInfo, nullptr);
+    taskDialog->show();
+    connect(taskDialog, &TaskDialog::destroyed, this, [&]() {
+        taskDialog = nullptr;
+    });
 }
 
 void MainWindow::changeEvent(QEvent *event) {

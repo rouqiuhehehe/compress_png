@@ -6,8 +6,10 @@
 #define DECRYPTIONQT_MAINWINDOW_H
 
 #include <QAbstractButton>
+#include <QFileInfo>
 #include <QWidget>
 #include <QSystemTrayIcon>
+#include <QStandardPaths>
 
 QT_BEGIN_NAMESPACE
 
@@ -31,13 +33,18 @@ protected:
 private slots:
     void buttonClicked(QAbstractButton *);
     void trayIconActive(QSystemTrayIcon::ActivationReason reason);
+    void dirSelect();
 
 private:
     void initTrayIcon();
+    void startTask();
 
     QSystemTrayIcon* trayIcon{};
 
     Ui::MainWindow *ui;
+    class TaskDialog *taskDialog;
+    // QString initialDir = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
+    QString initialDir = "D:\\testimg";
 };
 
 

@@ -1,1 +1,1 @@
-#add_subdirectory(libgm-c)
+add_subdirectory(libimagequant)
