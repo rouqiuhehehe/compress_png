@@ -42,7 +42,7 @@ private:
     QSystemTrayIcon* trayIcon{};
 
     Ui::MainWindow *ui;
-    class TaskDialog *taskDialog;
+    class TaskDialog *taskDialog {};
     // QString initialDir = QStandardPaths::writableLocation(QStandardPaths::DesktopLocation);
     QString initialDir = "D:\\testimg";
 };

@@ -5,7 +5,7 @@
 
 int main(int argc, char *argv[]) {
     qDebug() << QImageWriter::supportedImageFormats();
-    SingleApplication a(argc, argv, "__TcpConnectorsByVarian__");
+    SingleApplication a(argc, argv);
     QTranslator translator;
     if (!translator.load(":/language/mylang.qm")) {
         return 1;

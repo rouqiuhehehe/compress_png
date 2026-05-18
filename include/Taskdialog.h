@@ -29,7 +29,7 @@ class TaskDialog : public QWidget {
     Q_OBJECT
 
 public:
-    explicit TaskDialog(QFileInfoList fileInfoList, QWidget *parent = nullptr);
+    explicit TaskDialog(QFileInfoList fileInfoList, bool deleteOrigin, QWidget *parent = nullptr);
 
     ~TaskDialog() override;
 
@@ -47,6 +47,7 @@ private:
 
     Ui::TaskDialog *ui;
     QFileInfoList fileInfoList;
+    bool deleteOrigin;
 };
 
 

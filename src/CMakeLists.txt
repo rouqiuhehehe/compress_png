@@ -19,6 +19,7 @@ if (CMAKE_BUILD_TYPE MATCHES "Release")
 endif ()
 
 target_compile_options(${PROJECT_NAME} PRIVATE -Wno-ignored-attributes)
+target_compile_definitions(${PROJECT_NAME} PRIVATE SINGLE_APP_NAME="__${PROJECT_NAME}__")
 
 #add_custom_command(TARGET ${PROJECT_NAME}
 #        POST_BUILD

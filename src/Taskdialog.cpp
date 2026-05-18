@@ -76,8 +76,8 @@ void reduceAlphaPrecision(QImage &img, int step = 8) {
     }
 }
 
-TaskDialog::TaskDialog(QFileInfoList fileInfoList, QWidget *parent)
-    : QWidget(parent), ui(new Ui::TaskDialog), fileInfoList(std::move(fileInfoList)) {
+TaskDialog::TaskDialog(QFileInfoList fileInfoList, bool deleteOrigin, QWidget *parent)
+    : QWidget(parent), ui(new Ui::TaskDialog), fileInfoList(std::move(fileInfoList)), deleteOrigin(deleteOrigin) {
     ui->setupUi(this);
 
     QThreadPool::globalInstance()->setMaxThreadCount(QThread::idealThreadCount());
@@ -136,6 +136,7 @@ void TaskDialog::runTask() {
 
         QFileInfo info(path);
         uiInfo->totalSize += info.size();
+        deleteOrigin && QFile::remove(path);
     });
 
     auto watcher = new QFutureWatcher<void>(this);

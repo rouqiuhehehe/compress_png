@@ -22,7 +22,7 @@ public:
         BY_LOCAL_SOCKET  // 使用本地socket通信
     };
 
-    SingleApplication(int &argc, char **argv, QString appName, SINGLE_MODE mode = SINGLE_MODE::BY_LOCAL_SOCKET, int f = ApplicationFlags)
+    SingleApplication(int &argc, char **argv, QString appName = SINGLE_APP_NAME, SINGLE_MODE mode = SINGLE_MODE::BY_LOCAL_SOCKET, int f = ApplicationFlags)
         : QApplication(argc, argv, f), mode_(mode), NAME(std::move(appName)) {
         if (mode_ == SINGLE_MODE::BY_LOCAL_SOCKET) initLocalServer();
         else initLockFile();

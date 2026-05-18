@@ -7,6 +7,7 @@
 #include "ui_MainWindow.h"
 #include "Mainwindow.h"
 
+#include <QDirIterator>
 #include <QLockFile>
 #include <QPushButton>
 #include <QMenu>
@@ -84,17 +85,29 @@ void MainWindow::initTrayIcon() {
 }
 
 void MainWindow::startTask() {
-    QDir dir(ui->label->text());
+    QString path = ui->label->text();
     QStringList filters;
     filters << "*.png";
 
-    QFileInfoList fileInfo = dir.entryInfoList(filters, QDir::Files | QDir::NoSymLinks);
+    QFileInfoList fileInfo;
+
+    QDirIterator it(
+        path,
+        filters,
+        QDir::Files | QDir::NoSymLinks,
+        ui->RecursiveCheckBox->checkState() == Qt::Checked ? QDirIterator::Subdirectories : QDirIterator::NoIteratorFlags
+    );
+
+    while (it.hasNext()) {
+        fileInfo.append(it.nextFileInfo());
+    }
+
     if (fileInfo.isEmpty()) {
         QMessageBox::critical(this, tr("错误"), tr("无需要处理的图片（暂只支持png）"), QMessageBox::Ok);
         return;
     }
 
-    taskDialog = new TaskDialog(fileInfo, nullptr);
+    taskDialog = new TaskDialog(fileInfo, ui->pngCheckBox->checkState() == Qt::Checked, nullptr);
     taskDialog->show();
     connect(taskDialog, &TaskDialog::destroyed, this, [&]() {
         taskDialog = nullptr;
